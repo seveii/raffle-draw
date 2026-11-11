@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech Raffle Draw</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main class="app">
+  <section class="scene-wrap">
+    <canvas id="scene" aria-label="Raffle draw machine: a glass globe of balls with a hand that picks one. Click to draw."></canvas>
+  </section>
+
+  <section class="stage">
+    <div class="title">
+      <h1>TECH RAFFLE DRAW</h1>
+    </div>
+    <div class="display idle" id="display" aria-label="Winning control number">
+      <div class="display-label">CONTROL NO.</div>
+      <div class="digits" id="digits"><span class="digit">-</span><span class="digit">-</span><span class="digit">-</span><span class="digit">-</span></div>
+    </div>
+    <button class="draw-btn" id="drawBtn" type="button">TAP TO DRAW</button>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+</main>
+</body>
+</html>

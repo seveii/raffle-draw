@@ -1,0 +1,72 @@
+/* Tech Raffle Draw — page layout, number display and draw button */
+:root{
+  --black:#070304; --maroon:#3a0912; --maroon2:#5a0d1b; --red:#d4202e; --red2:#ff4150;
+  --text:#f8eceb; --muted:#c3a3a7; --gold:#ffe2a0; --line:rgba(255,120,130,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  min-height:100vh; color:var(--text); overflow-x:hidden;
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:#0d0306;
+}
+
+/* full-page canvases: room background behind everything, confetti in front */
+#bg{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+#confetti{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:10}
+
+.app{
+  position:relative; z-index:1;
+  max-width:1320px; min-height:100vh; margin:0 auto; padding:14px 32px;
+  display:grid; grid-template-columns:minmax(0,1fr) 420px; gap:36px; align-items:center;
+}
+
+/* the machine */
+.scene-wrap{display:flex; justify-content:center}
+#scene{display:block; height:min(calc(100vh - 28px), 980px); min-height:520px; width:auto; max-width:100%; aspect-ratio:720/1000; cursor:pointer}
+
+/* right-hand column */
+.stage{display:flex; flex-direction:column; gap:16px; min-width:0}
+.title{text-align:center; margin-bottom:10px}
+h1{
+  margin:0; font-size:clamp(22px,2.2vw,31px); letter-spacing:.14em; font-weight:900; white-space:nowrap;
+  background:linear-gradient(#fff,#ff6a73 55%,#a1111f); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.6));
+}
+
+/* flashing number display */
+.display{
+  text-align:center; padding:14px 16px 18px; border-radius:18px;
+  background:linear-gradient(#141012,#050304); border:2px solid #2a1a1d;
+  box-shadow:0 0 0 4px #8d8387, 0 0 0 6px #3b2a2e, 0 0 40px rgba(212,32,46,.3), 0 14px 30px rgba(0,0,0,.6), inset 0 0 30px rgba(0,0,0,.9);
+}
+.display-label{font-size:12px; letter-spacing:.4em; color:#9a7d82; font-weight:700}
+.digits{display:flex; justify-content:center; gap:8px; margin-top:8px}
+.digit{
+  display:grid; place-items:center; min-width:.75em; padding:.06em .18em;
+  font:800 clamp(52px,6vw,88px)/1.1 ui-monospace,Consolas,"Courier New",monospace;
+  color:var(--red2); text-shadow:0 0 14px rgba(255,65,80,.85);
+  background:linear-gradient(#0b0708,#1b0f12); border:1px solid #3a1a20; border-radius:10px;
+}
+.display.idle .digit{color:#4a1a20; text-shadow:none}
+.display.flashing .digit{animation:glow .6s ease-in-out infinite alternate}
+.display.winner .digit{color:var(--gold); animation:blink .5s steps(1) 6, glowWin 1.2s ease-in-out 3s infinite alternate}
+@keyframes glow{from{text-shadow:0 0 8px rgba(255,65,80,.5)}to{text-shadow:0 0 28px rgba(255,65,80,1),0 0 4px #fff3}}
+@keyframes blink{0%{opacity:1}50%{opacity:.12}100%{opacity:1}}
+@keyframes glowWin{from{text-shadow:0 0 10px rgba(255,226,160,.6)}to{text-shadow:0 0 32px rgba(255,226,160,1),0 0 6px #fff6}}
+
+/* draw button */
+.draw-btn{
+  font:900 clamp(18px,2vw,24px)/1 inherit; font-family:inherit; letter-spacing:.16em; color:#fff;
+  padding:20px 44px; border-radius:999px; border:0; cursor:pointer; width:100%;
+  background:linear-gradient(#f0343f,#a50f1c); box-shadow:0 6px 0 #5a0710, 0 14px 28px rgba(212,32,46,.4), inset 0 1px 0 rgba(255,255,255,.35);
+  text-shadow:0 2px 0 rgba(0,0,0,.35); transition:transform .08s, box-shadow .08s, filter .2s;
+}
+.draw-btn:hover:not(:disabled){filter:brightness(1.1)}
+.draw-btn:active:not(:disabled){transform:translateY(4px); box-shadow:0 2px 0 #5a0710, 0 6px 14px rgba(212,32,46,.4)}
+.draw-btn:disabled{cursor:not-allowed; background:linear-gradient(#5b4a4d,#3a2d30); box-shadow:0 6px 0 #1f1618; color:#cdbcc0}
+.draw-btn:focus-visible{outline:3px solid var(--gold); outline-offset:3px}
+.status{min-height:1.5em; text-align:center; font-size:18px; color:var(--gold); font-weight:600}
+
+/* narrow windows: stack the machine above the controls */
+@media (max-width:1000px){ .app{grid-template-columns:1fr} #scene{height:auto; width:100%; min-height:0} }
