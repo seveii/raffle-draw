@@ -1,0 +1,50 @@
+/* Tech Raffle Draw — hidden settings and winners panel (opened with the gear icon) */
+.gear{
+  position:fixed; top:14px; right:16px; z-index:20; width:38px; height:38px; display:grid; place-items:center;
+  border-radius:50%; border:1px solid var(--line); background:rgba(0,0,0,.35); color:var(--muted);
+  cursor:pointer; opacity:.35; transition:opacity .2s;
+}
+.gear:hover,.gear:focus-visible{opacity:1}
+.gear svg{width:20px; height:20px}
+
+.drawer{
+  position:fixed; top:0; right:0; bottom:0; width:min(380px,100vw); z-index:30; padding:18px 16px 24px; overflow:auto;
+  display:flex; flex-direction:column; gap:16px;
+  background:linear-gradient(#240810,#0d0406); border-left:1px solid var(--line); box-shadow:-20px 0 50px rgba(0,0,0,.6);
+  transform:translateX(105%); visibility:hidden; transition:transform .25s ease, visibility 0s .25s;
+}
+.drawer.open{transform:none; visibility:visible; transition:transform .25s ease}
+.drawer-head{display:flex; justify-content:space-between; align-items:center}
+.drawer-head strong{letter-spacing:.2em; font-size:13px; color:var(--muted)}
+
+.card{background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:16px; padding:16px}
+.card h2{margin:0 0 10px; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.row{display:flex; justify-content:space-between; align-items:center; gap:8px}
+.row h2{margin:0}
+
+label{display:block; font-size:13px; color:var(--muted); margin-bottom:10px}
+label input[type=number],label input[type=text]{
+  display:block; width:100%; margin-top:4px; padding:10px 12px; border-radius:10px; font-size:16px;
+  color:var(--text); background:rgba(0,0,0,.4); border:1px solid var(--line);
+}
+label.check{display:flex; gap:8px; align-items:center; color:var(--text); font-size:14px; cursor:pointer}
+label.check input{width:18px; height:18px; accent-color:var(--red)}
+.pool{margin:4px 0 0; font-size:13px; color:var(--muted)}
+
+.mini{
+  font:600 12px/1 inherit; font-family:inherit; color:var(--text); background:rgba(255,255,255,.08);
+  border:1px solid var(--line); border-radius:8px; padding:7px 10px; cursor:pointer;
+}
+.mini:hover{background:rgba(255,255,255,.16)}
+.mini.danger,.mini.danger:hover{background:var(--red); border-color:var(--red2); color:#fff}
+input:focus-visible,.mini:focus-visible,.gear:focus-visible{outline:3px solid var(--gold); outline-offset:3px}
+
+ol#history{list-style:none; margin:0; padding:0; max-height:340px; overflow:auto; display:flex; flex-direction:column; gap:6px}
+ol#history li{
+  display:grid; grid-template-columns:34px 1fr auto; gap:8px; align-items:center;
+  padding:8px 10px; border-radius:10px; background:rgba(0,0,0,.35); font-size:13px;
+}
+.hn{color:var(--muted)}
+.hno{font:800 20px/1 ui-monospace,Consolas,monospace; color:var(--gold)}
+.hmeta{color:var(--muted); font-size:12px; text-align:right}
+.empty{color:var(--muted); font-size:13px; padding:6px 2px}

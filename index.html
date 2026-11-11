@@ -5,9 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tech Raffle Draw</title>
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/settings.css">
 </head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
+<button class="gear" id="gearBtn" type="button" aria-label="Settings and winners" aria-expanded="false" aria-controls="drawer" title="Settings &amp; winners">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+</button>
+
 <main class="app">
   <section class="scene-wrap">
     <canvas id="scene" aria-label="Raffle draw machine: a glass globe of balls with a hand that picks one. Click to draw."></canvas>
@@ -26,10 +31,37 @@
   </section>
 </main>
 
+<aside class="drawer" id="drawer" aria-label="Settings and winners">
+  <div class="drawer-head"><strong>SETTINGS &amp; WINNERS</strong><button class="mini" id="drawerClose" type="button">Close</button></div>
+  <section class="card">
+    <h2>Settings</h2>
+    <label>Highest control no.
+      <input id="maxInput" type="number" min="2" max="99999" step="1" inputmode="numeric">
+    </label>
+    <label>Prize label (optional)
+      <input id="prizeInput" type="text" maxlength="40" placeholder="e.g. Grand Prize">
+    </label>
+    <label class="check"><input type="checkbox" id="noRepeat"> Never draw the same number twice</label>
+    <label class="check"><input type="checkbox" id="soundOn"> Sound effects</label>
+    <p class="pool" id="poolInfo"></p>
+  </section>
+  <section class="card">
+    <div class="row">
+      <h2>Winners</h2>
+      <span>
+        <button class="mini" id="copyBtn" type="button">Copy</button>
+        <button class="mini" id="clearBtn" type="button">Clear</button>
+      </span>
+    </div>
+    <ol id="history"></ol>
+  </section>
+</aside>
+
 <script src="js/core.js"></script>
 <script src="js/background.js"></script>
 <script src="js/machine.js"></script>
 <script src="js/balls.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
